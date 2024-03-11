@@ -1,18 +1,14 @@
 class Solution {
-    public:
+public:
     string customSortString(string order, string s) {
-        unordered_map<char, int> freq;
-        for (char letter : s) freq[letter]++;
-
-        string result = "";
-        for (auto letter : order) {
-            while (freq[letter]-- > 0) result += letter;
+        string ans = "";
+        map<char, int> mp;
+        for (auto i : s) mp[i]++;
+        for (auto i : order) {
+            while (mp[i]--) ans += i;
         }
-
-        for (auto &i : freq) { 
-            while (i.second-- > 0) result += i.first;
-        }
-
-        return result;
+        for (auto i : mp) cout << i.first << " " << i.second << "\n";
+        for (auto i : mp) while (i.second-- > 0) ans += i.first;
+        return ans;
     }
 };
