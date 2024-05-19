@@ -1,27 +1,18 @@
 class Solution {
-private:
-    // Return the maximum values in the 3 x 3 matrix with top-left as (x, y).
-    int findMax(vector<vector<int>>& grid, int x, int y) {
-        int maxElement = 0;
-        for (int i = x; i < x + 3; i++) {
-            for (int j = y; j < y + 3; j++) {
-                maxElement = max(maxElement, grid[i][j]);
-            }
-        }
-        
-        return maxElement;
+public:
+    int getMaxValue(int i, int j, vector<vector<int>>& grid) {
+        return max({grid[i][j], grid[i][j + 1], grid[i][j + 2],
+                   grid[i + 1][j], grid[i + 1][j + 1], grid[i + 1][j + 2],
+                   grid[i + 2][j], grid[i + 2][j + 1], grid[i + 2][j + 2]});
     }
-public: 
     vector<vector<int>> largestLocal(vector<vector<int>>& grid) {
-        int N = grid.size();
-        
-        vector<vector<int>> maxLocal(N - 2, vector<int>(N - 2, 0));
-        for (int i = 0; i < N - 2; i++) {
-            for (int j = 0; j < N - 2; j++) {
-                maxLocal[i][j] = findMax(grid, i, j);
+        int n = grid.size();
+        vector<vector<int>> ans(n - 2, vector<int> (n - 2, 0));
+        for (int i = 0; i < n - 2; ++i) {
+            for (int j = 0; j < n - 2; ++j) {
+                ans[i][j] = getMaxValue(i, j, grid);
             }
         }
-        
-        return maxLocal;
+        return ans;
     }
 };
